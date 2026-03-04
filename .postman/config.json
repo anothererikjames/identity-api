@@ -1,0 +1,6 @@
+{
+  "workspaceName": "Identity API",
+  "domain": "identity",
+  "collections": "postman/collections",
+  "environments": "postman/environments"
+}
