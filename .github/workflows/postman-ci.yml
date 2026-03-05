@@ -22,17 +22,10 @@ jobs:
       - name: Install Newman
         run: npm install -g newman newman-reporter-htmlextra
 
-      - name: Run collection (Production spec)
-        env:
-          BASE_URL: ${{ secrets.IDENTITY_API_BASE_URL }}
-          TEST_EMAIL: ${{ secrets.IDENTITY_TEST_EMAIL }}
-          TEST_PASSWORD: ${{ secrets.IDENTITY_TEST_PASSWORD }}
+      - name: Run collection against Postman Cloud Mock
         run: |
           newman run "postman/collections/Identity API.postman_collection.json" \
             --environment "postman/environments/production.postman_environment.json" \
-            --env-var "baseUrl=${BASE_URL}" \
-            --env-var "testEmail=${TEST_EMAIL}" \
-            --env-var "testPassword=${TEST_PASSWORD}" \
             --reporters cli,htmlextra \
             --reporter-htmlextra-export reports/identity-api-results.html \
             --bail

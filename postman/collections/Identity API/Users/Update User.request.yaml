@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/users/{{userId}}"
+method: PATCH
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "name": "Updated Name"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Name was updated", () => {
+        pm.expect(pm.response.json().name).to.equal('Updated Name');
+      });
+order: 3000

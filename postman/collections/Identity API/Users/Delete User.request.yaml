@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/users/{{userId}}"
+method: DELETE
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+scripts:
+  - type: afterResponse
+    code: pm.test("Status is 204", () => pm.response.to.have.status(204));
+order: 4000

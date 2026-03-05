@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Identity API",
-    "description": "Authentication and user management. All endpoints require a valid Bearer token except /auth/login and /auth/refresh.",
+    "description": "Auth and user management.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -15,33 +15,79 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
-                  "pm.test(\"Has accessToken\", () => {",
-                  "  const body = pm.response.json();",
-                  "  pm.expect(body.accessToken).to.be.a('string');",
-                  "  pm.environment.set('accessToken', body.accessToken);",
-                  "  pm.environment.set('refreshToken', body.refreshToken);",
-                  "});",
-                  "pm.test(\"Token expires in 3600s\", () => {",
-                  "  pm.expect(pm.response.json().expiresIn).to.equal(3600);",
-                  "});"
-                ]
+                  "pm.test(\"Status is 200\",()=>pm.response.to.have.status(200));",
+                  "pm.test(\"Has accessToken\",()=>{const b=pm.response.json();",
+                  "  pm.expect(b.accessToken).to.be.a(\"string\");",
+                  "  pm.environment.set(\"accessToken\",b.accessToken);",
+                  "  pm.environment.set(\"refreshToken\",b.refreshToken);});",
+                  "pm.test(\"Token expires in 3600s\",()=>pm.expect(pm.response.json().expiresIn).to.equal(3600));"
+                ],
+                "type": "text/javascript"
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\"\n}"
-            },
             "url": {
               "raw": "{{baseUrl}}/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{testEmail}}\",\"password\":\"{{testPassword}}\"}"
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Mock Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"{{testEmail}}\",\"password\":\"{{testPassword}}\"}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"accessToken\": \"eyJhbGciOiJSUzI1NiJ9.mock_access\", \"refreshToken\": \"mock_rt_xyz\", \"expiresIn\": 3600}"
+            }
+          ]
         },
         {
           "name": "Refresh Token",
@@ -50,29 +96,77 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
-                  "pm.test(\"Issues new access token\", () => {",
-                  "  const body = pm.response.json();",
-                  "  pm.expect(body.accessToken).to.be.a('string');",
-                  "  pm.environment.set('accessToken', body.accessToken);",
-                  "});"
-                ]
+                  "pm.test(\"Status is 200\",()=>pm.response.to.have.status(200));",
+                  "pm.test(\"Issues new access token\",()=>{const b=pm.response.json();",
+                  "  pm.expect(b.accessToken).to.be.a(\"string\");",
+                  "  pm.environment.set(\"accessToken\",b.accessToken);});"
+                ],
+                "type": "text/javascript"
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
-            },
             "url": {
               "raw": "{{baseUrl}}/auth/refresh",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "refresh"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"refreshToken\":\"{{refreshToken}}\"}"
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Mock Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/refresh",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "refresh"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"refreshToken\":\"{{refreshToken}}\"}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"accessToken\": \"eyJhbGciOiJSUzI1NiJ9.mock_refreshed\", \"refreshToken\": \"mock_rt_abc\", \"expiresIn\": 3600}"
+            }
+          ]
         },
         {
           "name": "Logout",
@@ -81,23 +175,65 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
-                ]
+                  "pm.test(\"Status is 204\",()=>pm.response.to.have.status(204));"
+                ],
+                "type": "text/javascript"
               }
             }
           ],
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [{ "key": "token", "value": "{{accessToken}}" }]
-            },
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/auth/logout",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "logout"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}"
+                }
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Mock Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": ""
+            }
+          ]
         }
       ]
     },
@@ -108,47 +244,97 @@
           "name": "Create User",
           "event": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
-                  "pm.test(\"Returns user object with id\", () => {",
-                  "  const body = pm.response.json();",
-                  "  pm.expect(body.id).to.be.a('string');",
-                  "  pm.environment.set('userId', body.id);",
-                  "});",
-                  "pm.test(\"Email matches request\", () => {",
-                  "  pm.expect(pm.response.json().email).to.equal(pm.variables.get('newUserEmail'));",
-                  "});"
-                ]
-              }
-            },
-            {
               "listen": "prerequest",
               "script": {
                 "exec": [
-                  "pm.variables.set('newUserEmail', `test-${Date.now()}@acme.io`);"
-                ]
+                  "pm.variables.set(\"newUserEmail\",`test-${Date.now()}@acme.io`);"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 201\",()=>pm.response.to.have.status(201));",
+                  "pm.test(\"Returns user id\",()=>{const b=pm.response.json();",
+                  "  pm.expect(b.id).to.be.a(\"string\");",
+                  "  pm.environment.set(\"userId\",b.id);});",
+                  "pm.test(\"Returns email\",()=>pm.expect(pm.response.json().email).to.be.a(\"string\").and.not.empty);"
+                ],
+                "type": "text/javascript"
               }
             }
           ],
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [{ "key": "token", "value": "{{accessToken}}" }]
-            },
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"{{newUserEmail}}\",\n  \"password\": \"Acme@Secure123!\",\n  \"name\": \"Test User\"\n}"
-            },
             "url": {
               "raw": "{{baseUrl}}/users",
-              "host": ["{{baseUrl}}"],
-              "path": ["users"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{newUserEmail}}\",\"password\":\"Acme@Secure123!\",\"name\":\"Test User\"}"
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Mock Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"{{newUserEmail}}\",\"password\":\"Acme@Secure123!\",\"name\":\"Test User\"}"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"id\": \"usr_mock_abc123\", \"email\": \"test-mock@acme.io\", \"name\": \"Test User\", \"role\": \"member\", \"createdAt\": \"2026-03-05T10:00:00Z\", \"updatedAt\": \"2026-03-05T10:00:00Z\"}"
+            }
+          ]
         },
         {
           "name": "Get User",
@@ -157,28 +343,68 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
-                  "pm.test(\"Response has expected fields\", () => {",
-                  "  const body = pm.response.json();",
-                  "  pm.expect(body).to.have.all.keys('id', 'email', 'name', 'role', 'createdAt', 'updatedAt');",
-                  "});",
-                  "pm.test(\"Response time < 500ms\", () => pm.expect(pm.response.responseTime).to.be.below(500));"
-                ]
+                  "pm.test(\"Status is 200\",()=>pm.response.to.have.status(200));",
+                  "pm.test(\"Has expected fields\",()=>{const b=pm.response.json();",
+                  "  pm.expect(b).to.have.all.keys(\"id\",\"email\",\"name\",\"role\",\"createdAt\",\"updatedAt\");});",
+                  "pm.test(\"Response time < 500ms\",()=>pm.expect(pm.response.responseTime).to.be.below(500));"
+                ],
+                "type": "text/javascript"
               }
             }
           ],
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [{ "key": "token", "value": "{{accessToken}}" }]
-            },
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/users/{{userId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["users", "{{userId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}"
+                }
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Mock Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/{{userId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "{{userId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"id\": \"usr_mock_abc123\", \"email\": \"test-mock@acme.io\", \"name\": \"Test User\", \"role\": \"member\", \"createdAt\": \"2026-03-05T10:00:00Z\", \"updatedAt\": \"2026-03-05T10:00:00Z\"}"
+            }
+          ]
         },
         {
           "name": "Update User",
@@ -187,31 +413,84 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
-                  "pm.test(\"Name was updated\", () => {",
-                  "  pm.expect(pm.response.json().name).to.equal('Updated Name');",
-                  "});"
-                ]
+                  "pm.test(\"Status is 200\",()=>pm.response.to.have.status(200));",
+                  "pm.test(\"Name was updated\",()=>pm.expect(pm.response.json().name).to.equal(\"Updated Name\"));"
+                ],
+                "type": "text/javascript"
               }
             }
           ],
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [{ "key": "token", "value": "{{accessToken}}" }]
-            },
             "method": "PATCH",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Updated Name\"\n}"
-            },
             "url": {
               "raw": "{{baseUrl}}/users/{{userId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["users", "{{userId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Updated Name\"}"
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Mock Response",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/{{userId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "{{userId}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"name\":\"Updated Name\"}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"id\": \"usr_mock_abc123\", \"email\": \"test-mock@acme.io\", \"name\": \"Updated Name\", \"role\": \"member\", \"createdAt\": \"2026-03-05T10:00:00Z\", \"updatedAt\": \"2026-03-05T10:00:00Z\"}"
+            }
+          ]
         },
         {
           "name": "Delete User",
@@ -220,28 +499,73 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
-                ]
+                  "pm.test(\"Status is 204\",()=>pm.response.to.have.status(204));"
+                ],
+                "type": "text/javascript"
               }
             }
           ],
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [{ "key": "token", "value": "{{accessToken}}" }]
-            },
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/users/{{userId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["users", "{{userId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}"
+                }
+              ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "Mock Response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/{{userId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "{{userId}}"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": ""
+            }
+          ]
         }
       ]
     }
   ],
   "variable": [
-    { "key": "baseUrl", "value": "https://api.acme.io/identity/v1" }
+    {
+      "key": "baseUrl",
+      "value": "https://api.acme.io/identity/v1"
+    }
   ]
 }

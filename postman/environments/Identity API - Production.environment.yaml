@@ -1,0 +1,20 @@
+name: Identity API - Production
+values:
+  - key: baseUrl
+    value: 'https://2f8af71b-92e1-4332-9dfb-c2e72426f4de.mock.pstmn.io'
+    enabled: true
+  - key: testEmail
+    value: qa-bot@acme.io
+    enabled: true
+  - key: testPassword
+    value: ''
+    enabled: true
+  - key: accessToken
+    value: ''
+    enabled: true
+  - key: refreshToken
+    value: ''
+    enabled: true
+  - key: userId
+    value: ''
+    enabled: true

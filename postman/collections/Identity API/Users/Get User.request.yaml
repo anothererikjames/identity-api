@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{baseUrl}}/users/{{userId}}"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+scripts:
+  - type: afterResponse
+    code: >-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+
+      pm.test("Response has expected fields", () => {
+        const body = pm.response.json();
+        pm.expect(body).to.have.all.keys('id', 'email', 'name', 'role', 'createdAt', 'updatedAt');
+      });
+
+      pm.test("Response time < 500ms", () =>
+      pm.expect(pm.response.responseTime).to.be.below(500));
+order: 2000

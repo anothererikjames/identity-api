@@ -1,0 +1,5 @@
+$kind: collection
+description: Authentication and user management. All endpoints require a valid
+  Bearer token except /auth/login and /auth/refresh.
+variables:
+  baseUrl: https://api.acme.io/identity/v1
