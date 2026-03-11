@@ -1,6 +1,17 @@
 {
-  "workspaceName": "identity-api",
-  "domain": "identity",
-  "collections": "postman/collections",
-  "environments": "postman/environments"
+  "workspace": {
+    "id": "1860fac4-93f7-49d1-932c-42030716c80c"
+  },
+  "entities": {
+    "collections": [
+      "../postman/collections/Identity API — Demo_52238111-0031ac88-b487-4957-bd28-5d82cb517b72.postman_collection.json"
+    ],
+    "environments": [
+      "../postman/environments/Identity API — Development_52238111-8b0615f6-13cc-43bf-8de6-b85f7c4c8a5c.postman_environment.json",
+      "../postman/environments/Identity API — Production_52238111-d468c30d-f04e-4b7b-a97d-1074a6fdcc97.postman_environment.json"
+    ],
+    "specs": [],
+    "flows": [],
+    "globals": []
+  }
 }
