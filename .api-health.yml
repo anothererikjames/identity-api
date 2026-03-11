@@ -1,0 +1,4 @@
+# API Health Check Configuration
+monitor: true
+interval: 6h
+service: identity-api
