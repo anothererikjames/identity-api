@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Test users 1",
+      "status": "active",
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Test users 2",
+      "status": "active",
+      "createdAt": "2026-01-02T00:00:00Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "name": "Test sessions 1",
+      "status": "active",
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Test sessions 2",
+      "status": "active",
+      "createdAt": "2026-01-02T00:00:00Z"
+    }
+  ],
+  "permissions": [
+    {
+      "id": 1,
+      "name": "Test permissions 1",
+      "status": "active",
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Test permissions 2",
+      "status": "active",
+      "createdAt": "2026-01-02T00:00:00Z"
+    }
+  ]
+}
